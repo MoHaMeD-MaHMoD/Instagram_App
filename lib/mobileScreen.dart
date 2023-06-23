@@ -38,6 +38,7 @@ class _MobileScreenState extends State<MobileScreen> {
               setState(() {
                 currentPage = index;
               });
+           
             },
             items: [
               BottomNavigationBarItem(
