@@ -2,6 +2,8 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:instagram_app/Responsive.dart';
 import 'package:instagram_app/mobileScreen.dart';
@@ -12,7 +14,6 @@ import 'package:instagram_app/webScreen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
-  } else
     await Firebase.initializeApp(
         options: const FirebaseOptions(
             apiKey: "AIzaSyBIjpHtCHbFOPICeiETKd2BlXOvq033XAw",
@@ -21,7 +22,8 @@ Future<void> main() async {
             storageBucket: "instgram-e7c92.appspot.com",
             messagingSenderId: "582666365592",
             appId: "1:582666365592:web:18b611c6fbf6dfbb55feed"));
-
+  } else
+    await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
-        home: Register()
+        home: Login()
 
         //  Responsive(
         //   myMobileScreen: MobileScreen(),
