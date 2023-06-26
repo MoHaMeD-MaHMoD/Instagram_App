@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/Responsive.dart';
 import 'package:instagram_app/mobileScreen.dart';
+import 'package:instagram_app/screens/user/Login.dart';
+import 'package:instagram_app/screens/user/Register.dart';
 import 'package:instagram_app/webScreen.dart';
 
 void main() {
@@ -17,10 +19,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: Responsive(
-        myMobileScreen: MobileScreen(),
-        myWebScreen: WebScreen(),
-      ),
+      home:Register()
+      
+      
+      
+      //  Responsive(
+      //   myMobileScreen: MobileScreen(),
+      //   myWebScreen: WebScreen(),
+      // ),
     );
   }
 }
