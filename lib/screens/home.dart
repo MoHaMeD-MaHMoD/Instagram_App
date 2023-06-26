@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                           radius: 33,
                           backgroundImage: NetworkImage(
                               // widget.snap["profileImg"],
-                              "https://i.pinimg.com/564x/94/df/a7/94dfa775f1bad7d81aa9898323f6f359.jpg"),
+                              "https://scontent-hbe1-1.xx.fbcdn.net/v/t39.30808-6/326259785_5349343998499860_2647564246765235950_n.jpg?_nc_cat=110&cb=99be929b-3346023f&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=j4TT_BZjCIwAX8T0tRC&_nc_ht=scontent-hbe1-1.xx&oh=00_AfCvQQm_y9d0TFqmHY1Uuh6HRfRJRU8T9DR5nqH0sIDoLA&oe=649E7B51"),
                         ),
                       ),
                       SizedBox(
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
                       ),
                       Text(
                         // widget.snap["username"],
-                        "Layla hassan",
+                        "EL-Beaky",
                         style: TextStyle(fontSize: 15),
                       ),
                     ],
@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
             ),
             Image.network(
               // widget.snap["postUrl"],
-              "https://cdn1-m.alittihad.ae/store/archive/image/2021/10/22/6266a092-72dd-4a2f-82a4-d22ed9d2cc59.jpg?width=1300",
+              "https://scontent-hbe1-1.xx.fbcdn.net/v/t39.30808-6/286815554_3446772935591790_6327485241880371465_n.jpg?_nc_cat=104&cb=99be929b-3346023f&ccb=1-7&_nc_sid=174925&_nc_ohc=L91VZ1aY5zQAX_zKJhi&_nc_ht=scontent-hbe1-1.xx&oh=00_AfCrMmZMKSCwG0dn0UgDGQeBN5v9zPiWgUv3ohBL9rKf7g&oe=649E8738",
               fit: BoxFit.cover,
               height: MediaQuery.of(context).size.height * 0.35,
               width: double.infinity,

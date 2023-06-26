@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/shared/colors.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -10,6 +11,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+     final double widthScreen = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: mobileBackgroundColor,
       appBar: AppBar(
@@ -121,7 +123,7 @@ class _ProfileState extends State<Profile> {
           ),
           Divider(
             color: Colors.white,
-            thickness: 0.44,
+            thickness: widthScreen > 600 ? 0.06 : 0.44,
           ),
           SizedBox(
             height: 9,
@@ -143,8 +145,8 @@ class _ProfileState extends State<Profile> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
                       Color.fromARGB(0, 90, 103, 223)),
-                  padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 33)),
+                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                      vertical: widthScreen > 600 ? 19 : 10, horizontal: 33)),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7),
@@ -172,8 +174,8 @@ class _ProfileState extends State<Profile> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
                       Color.fromARGB(143, 255, 55, 112)),
-                  padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 33)),
+                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                      vertical: widthScreen > 600 ? 19 : 10, horizontal: 33)),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7),
@@ -188,31 +190,36 @@ class _ProfileState extends State<Profile> {
           ),
           Divider(
             color: Colors.white,
-            thickness: 0.44,
+            thickness: widthScreen > 600 ? 0.06 : 0.44,
           ),
           SizedBox(
             height: 19,
           ),
           Expanded(
-            child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 3 / 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10),
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
-                    child: Image.network(
-                      "https://cdn1-m.alittihad.ae/store/archive/image/2021/10/22/6266a092-72dd-4a2f-82a4-d22ed9d2cc59.jpg?width=1300",
-                      // height: 333,
-                      // width: 100,
+            child: Padding(
+              padding: widthScreen > 600
+                  ? const EdgeInsets.all(66.0)
+                  : const EdgeInsets.all(3.0),
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 3 / 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
+                  itemCount: 3,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Image.network(
+                        "https://cdn1-m.alittihad.ae/store/archive/image/2021/10/22/6266a092-72dd-4a2f-82a4-d22ed9d2cc59.jpg?width=1300",
+                        // height: 333,
+                        // width: 100,
 
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                }),
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  }),
+            ),
           ),
         ],
       ),
