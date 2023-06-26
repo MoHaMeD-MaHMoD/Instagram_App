@@ -1,14 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
- 
 
- 
 import 'package:flutter/material.dart';
- 
+
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:instagram_app/screens/user/Register.dart';
 import 'package:instagram_app/shared/colors.dart';
 import 'package:instagram_app/shared/constant.dart';
-
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -50,17 +48,19 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final double widthScreen = MediaQuery.of(context).size.width;
     // final googleSignInProvider = Provider.of<GoogleSignInProvider>(context);
     return Scaffold(
-      backgroundColor: mobileBackgroundColor,
+        backgroundColor: mobileBackgroundColor,
         appBar: AppBar(
           // backgroundColor: appbarGreen,
           title: Text("Sign in"),
         ),
-     
         body: Center(
             child: Padding(
-          padding: const EdgeInsets.all(33.0),
+          padding: widthScreen > 600
+              ? EdgeInsets.symmetric(horizontal: widthScreen * .3)
+              : const EdgeInsets.all(33.0),
           child: SingleChildScrollView(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -119,7 +119,6 @@ class _LoginState extends State<Login> {
               const SizedBox(
                 height: 9,
               ),
-            
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -138,8 +137,6 @@ class _LoginState extends State<Login> {
                               decoration: TextDecoration.underline))),
                 ],
               ),
-         
-           
             ]),
           ),
         )));
