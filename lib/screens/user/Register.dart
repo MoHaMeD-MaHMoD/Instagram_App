@@ -6,7 +6,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_app/firebase%20services/Auth.dart';
+import 'package:instagram_app/firebase%20services/auth.dart';
 import 'package:instagram_app/screens/user/Login.dart';
 import 'package:instagram_app/shared/colors.dart';
 import 'package:instagram_app/shared/constant.dart';
@@ -264,7 +264,9 @@ class _RegisterState extends State<Register> {
                         await Auth().register(
                             emailAddress: emailController.text,
                             password: passwordController.text,
-                            context: context);
+                            context: context,
+                            userName: usernameController.text,
+                            title: titleController.text, imgName: imgName, imgPath: imgPath);
                         if (!mounted) return;
                         Navigator.pushReplacement(
                           context,
