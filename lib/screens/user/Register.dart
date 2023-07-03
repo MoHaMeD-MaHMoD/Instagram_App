@@ -2,11 +2,14 @@
 
 import 'dart:math';
 import 'dart:ui';
+import 'package:instagram_app/firebase%20services/Auth.dart';
+import 'package:instagram_app/webScreen.dart';
+import 'package:instagram_app/mobileScreen.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_app/firebase%20services/auth.dart';
+import 'package:instagram_app/Responsive.dart';
 import 'package:instagram_app/screens/user/Login.dart';
 import 'package:instagram_app/shared/colors.dart';
 import 'package:instagram_app/shared/constant.dart';
@@ -53,6 +56,40 @@ class _RegisterState extends State<Register> {
       }
     } catch (e) {
       print("Error => $e");
+    }
+  }
+
+  onRegister() async {
+    if (_formKey.currentState!.validate() &&
+        imgName != null &&
+        imgPath != null) {
+      setState(() {
+        isLoading = true;
+      });
+
+      await AuthUser().register(
+          emailAddress: emailController.text,
+          password: passwordController.text,
+          context: context,
+          userName: usernameController.text,
+          title: titleController.text,
+          imgName: imgName,
+          imgPath: imgPath);
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Responsive(
+                  myMobileScreen: MobileScreen(),
+                  myWebScreen: WebScreen(),
+                )),
+      );
+
+      setState(() {
+        isLoading = false;
+      });
+    } else {
+      showSnackBar(context, "ERROR");
     }
   }
 
@@ -186,7 +223,10 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 33,
                   ),
-                  TextField(
+                  TextFormField(
+                      validator: (value) {
+                        return value!.isEmpty ? "Can Not Be Empty" : null;
+                      },
                       controller: usernameController,
                       keyboardType: TextInputType.text,
                       obscureText: false,
@@ -197,6 +237,9 @@ class _RegisterState extends State<Register> {
                     height: 22,
                   ),
                   TextFormField(
+                      validator: (value) {
+                        return value!.isEmpty ? "Can Not Be Empty" : null;
+                      },
                       controller: titleController,
                       keyboardType: TextInputType.text,
                       obscureText: false,
@@ -225,7 +268,6 @@ class _RegisterState extends State<Register> {
                     height: 22,
                   ),
                   TextFormField(
-                      onChanged: (password) {},
                       // we return "null" when something is valid
                       validator: (value) {
                         return value!.length < 8
@@ -252,33 +294,7 @@ class _RegisterState extends State<Register> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()
-
-                          // && imgName != null &&
-                          // imgPath != null
-                          ) {
-                        setState(() {
-                          isLoading = true;
-                        });
-
-                        await Auth().register(
-                            emailAddress: emailController.text,
-                            password: passwordController.text,
-                            context: context,
-                            userName: usernameController.text,
-                            title: titleController.text, imgName: imgName, imgPath: imgPath);
-                        if (!mounted) return;
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => Login()),
-                        );
-
-                        setState(() {
-                          isLoading = false;
-                        });
-                      } else {
-                        showSnackBar(context, "ERROR");
-                      }
+                      await onRegister();
                     },
                     child: isLoading
                         ? CircularProgressIndicator(
@@ -301,8 +317,7 @@ class _RegisterState extends State<Register> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Do not have an account?",
-                          style: TextStyle(fontSize: 18)),
+                      Text(" have an account?", style: TextStyle(fontSize: 18)),
                       TextButton(
                           onPressed: () {
                             Navigator.pushReplacement(

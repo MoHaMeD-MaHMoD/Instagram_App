@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:instagram_app/firebase%20services/auth.dart';
 import 'package:instagram_app/screens/user/Register.dart';
 import 'package:instagram_app/shared/colors.dart';
 import 'package:instagram_app/shared/constant.dart';
@@ -21,22 +21,19 @@ class _LoginState extends State<Login> {
   final passwordController = TextEditingController();
   bool isLoading = false;
 
-  // signIn() async {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
+  onLogInPressed() async {
+    setState(() {
+      isLoading = true;
+    });
 
-  //   try {
-  //     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //         email: emailController.text, password: passwordController.text);
-  //   } on FirebaseAuthException catch (e) {
-  //     showSnackBar(context, "ERROR :  ${e.code} ");
-  //   }
-
-  //   setState(() {
-  //     isLoading = false;
-  //   });
-  // }
+    await AuthUser().signIn(
+        emaill: emailController.text,
+        passwordd: passwordController.text,
+        context: context);
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   void dispose() {
@@ -97,9 +94,7 @@ class _LoginState extends State<Login> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  // await signIn();
-                  // if (!mounted) return;
-                  // showSnackBar(context, "Done ... ");
+                  await onLogInPressed();
                 },
                 style: ButtonStyle(
                   // backgroundColor: MaterialStateProperty.all(BTNgreen),

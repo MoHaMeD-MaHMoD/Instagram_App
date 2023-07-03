@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_app/firebase%20services/auth.dart';
 import 'package:instagram_app/shared/colors.dart';
 
 class Home extends StatefulWidget {
@@ -28,7 +29,9 @@ class _HomeState extends State<Home> {
                       Icons.messenger_outline,
                     )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await AuthUser().logOut();
+                    },
                     icon: Icon(
                       Icons.logout,
                     )),
@@ -62,11 +65,9 @@ class _HomeState extends State<Home> {
                           color: Color.fromARGB(125, 78, 91, 110),
                         ),
                         child: CircleAvatar(
-                          radius: 33,
-                          backgroundImage: NetworkImage(
-                              // widget.snap["profileImg"],
-                              "https://scontent-hbe1-1.xx.fbcdn.net/v/t39.30808-6/326259785_5349343998499860_2647564246765235950_n.jpg?_nc_cat=110&cb=99be929b-3346023f&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=j4TT_BZjCIwAX8T0tRC&_nc_ht=scontent-hbe1-1.xx&oh=00_AfCvQQm_y9d0TFqmHY1Uuh6HRfRJRU8T9DR5nqH0sIDoLA&oe=649E7B51"),
-                        ),
+                            radius: 33, backgroundImage: NetworkImage(
+                                // widget.snap["profileImg"],
+                                "https://scontent.fcai19-5.fna.fbcdn.net/v/t39.30808-6/326259785_5349343998499860_2647564246765235950_n.jpg?_nc_cat=110&cb=99be929b-3346023f&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=geQDy2rZ1ZkAX_pDEFh&_nc_ht=scontent.fcai19-5.fna&oh=00_AfDkuuygKCsDaETUwVvsUfWqSGy_M4n1b0TBWkxzJLFKPQ&oe=64A46A11")),
                       ),
                       SizedBox(
                         width: 17,
@@ -83,8 +84,9 @@ class _HomeState extends State<Home> {
               ),
             ),
             Image.network(
+              
               // widget.snap["postUrl"],
-              "https://scontent-hbe1-1.xx.fbcdn.net/v/t39.30808-6/286815554_3446772935591790_6327485241880371465_n.jpg?_nc_cat=104&cb=99be929b-3346023f&ccb=1-7&_nc_sid=174925&_nc_ohc=L91VZ1aY5zQAX_zKJhi&_nc_ht=scontent-hbe1-1.xx&oh=00_AfCrMmZMKSCwG0dn0UgDGQeBN5v9zPiWgUv3ohBL9rKf7g&oe=649E8738",
+              "https://scontent.fcai19-5.fna.fbcdn.net/v/t39.30808-6/326259785_5349343998499860_2647564246765235950_n.jpg?_nc_cat=110&cb=99be929b-3346023f&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=geQDy2rZ1ZkAX_pDEFh&_nc_ht=scontent.fcai19-5.fna&oh=00_AfDkuuygKCsDaETUwVvsUfWqSGy_M4n1b0TBWkxzJLFKPQ&oe=64A46A11",
               fit: BoxFit.cover,
               height: MediaQuery.of(context).size.height * 0.35,
               width: double.infinity,
