@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserData {
   String email;
   String password;
@@ -32,5 +34,22 @@ class UserData {
       'followers': followers,
       'following': following
     };
+  }
+
+  // function that convert "DocumentSnapshot" to a User
+// function that takes "DocumentSnapshot" and return a User
+
+  static convertSnap2Model(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+    return UserData(
+      email: snapshot["email"],
+      userName: snapshot["user_name"],
+      followers: snapshot["followers"],
+      following: snapshot["followers"],
+      password: snapshot["passwoed"],
+      profileImg: snapshot["profile_img"],
+      title: snapshot["title"],
+      uid: snapshot["uid"],
+    );
   }
 }

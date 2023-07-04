@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_app/firebase%20services/Auth.dart';
+import 'package:instagram_app/provider/userProvider.dart';
 import 'package:instagram_app/shared/colors.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   Profile({super.key});
@@ -50,6 +52,8 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final double widthScreen = MediaQuery.of(context).size.width;
+    final allDataFromDB = Provider.of<UserProvider>(context).getUser;
+
     return isLoading
         ? const Center(
             child: CircularProgressIndicator(
@@ -259,6 +263,7 @@ class _ProfileState extends State<Profile> {
                           return ClipRRect(
                             borderRadius: BorderRadius.circular(4),
                             child: Image.network(
+                              
                               "https://cdn1-m.alittihad.ae/store/archive/image/2021/10/22/6266a092-72dd-4a2f-82a4-d22ed9d2cc59.jpg?width=1300",
                               // height: 333,
                               // width: 100,

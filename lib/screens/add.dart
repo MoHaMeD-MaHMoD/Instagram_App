@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/provider/userProvider.dart';
 import 'package:instagram_app/shared/colors.dart';
 import 'package:path/path.dart' show basename;
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
 import 'dart:math';
+
+import 'package:provider/provider.dart';
 
 
 class Add extends StatefulWidget {
@@ -80,6 +83,8 @@ class _AddState extends State<Add> {
 }
   @override
   Widget build(BuildContext context) {
+        final allDataFromDB = Provider.of<UserProvider>(context).getUser;
+
     return imgPath == null
         ? Scaffold(
             backgroundColor: mobileBackgroundColor,
@@ -136,7 +141,7 @@ class _AddState extends State<Add> {
                     CircleAvatar(
                       radius: 33,
                       backgroundImage: NetworkImage(
-                          "https://static-ai.asianetnews.com/images/01e42s5h7kpdte5t1q9d0ygvf7/1-jpeg.jpg"),
+                          allDataFromDB!.profileImg),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.3,
