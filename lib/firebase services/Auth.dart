@@ -20,7 +20,7 @@ class AuthUser {
         password: password,
       );
       String profileImgURL =
-          await getImgURL(imgName: imgName, imgPath: imgPath);
+          await getImgURL(imgName: imgName, imgPath: imgPath, folderName: 'profileIMG');
       CollectionReference users =
           FirebaseFirestore.instance.collection('users');
       UserData userr = UserData(

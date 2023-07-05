@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/firebase%20services/fireStore.dart';
 import 'package:instagram_app/provider/userProvider.dart';
 import 'package:instagram_app/shared/colors.dart';
 import 'package:path/path.dart' show basename;
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
 import 'dart:math';
+import 'package:uuid/uuid.dart';
+
 
 import 'package:provider/provider.dart';
-
 
 class Add extends StatefulWidget {
   const Add({super.key});
@@ -17,6 +19,7 @@ class Add extends StatefulWidget {
 }
 
 class _AddState extends State<Add> {
+  final desController = TextEditingController();
 
   Uint8List? imgPath;
   String? imgName;
@@ -79,11 +82,11 @@ class _AddState extends State<Add> {
         );
       },
     );
+  }
 
-}
   @override
   Widget build(BuildContext context) {
-        final allDataFromDB = Provider.of<UserProvider>(context).getUser;
+    final allDataFromDB = Provider.of<UserProvider>(context).getUser;
 
     return imgPath == null
         ? Scaffold(
@@ -107,6 +110,19 @@ class _AddState extends State<Add> {
                     onPressed: () {
                       setState(() {
                         isLoading = true;
+                      });
+
+                      FirestoreMethods().addPost(
+                          imgName: imgName,
+                          imgPath: imgPath,
+                          description: desController.text,
+                          profileImg: allDataFromDB!.profileImg,
+                          username: allDataFromDB.userName,
+                          context: context);
+
+                      setState(() {
+                        isLoading = false;
+                        imgPath = null;
                       });
                     },
                     child: const Text(
@@ -140,14 +156,14 @@ class _AddState extends State<Add> {
                   children: [
                     CircleAvatar(
                       radius: 33,
-                      backgroundImage: NetworkImage(
-                          allDataFromDB!.profileImg),
+                      backgroundImage: NetworkImage(allDataFromDB!.profileImg),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.3,
                       child: TextField(
                         // controller: descriptionController,
                         maxLines: 8,
+                        controller: desController,
                         decoration: InputDecoration(
                             hintText: "write a caption...",
                             border: InputBorder.none),
