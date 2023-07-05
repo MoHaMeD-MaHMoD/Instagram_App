@@ -17,6 +17,7 @@ Map userData = {};
 bool isLoading = true;
 int followers = 0;
 int following = 0;
+int postNumber = 0;
 
 class _ProfileState extends State<Profile> {
   getDate() async {
@@ -33,6 +34,11 @@ class _ProfileState extends State<Profile> {
       userData = snapShot.data()!;
       followers = userData["followers"].length;
       following = userData["following"].length;
+      var snapShotPost = await FirebaseFirestore.instance
+          .collection('posts')
+          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .get();
+      postNumber = snapShotPost.docs.length;
     } catch (e) {
       print(e.toString());
     }
@@ -91,7 +97,7 @@ class _ProfileState extends State<Profile> {
                           Column(
                             children: [
                               Text(
-                                "1",
+                                postNumber.toString(),
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
@@ -247,33 +253,51 @@ class _ProfileState extends State<Profile> {
                 SizedBox(
                   height: 19,
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: widthScreen > 600
-                        ? const EdgeInsets.all(66.0)
-                        : const EdgeInsets.all(3.0),
-                    child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 3 / 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10),
-                        itemCount: 3,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: Image.network(
-                              
-                              "https://cdn1-m.alittihad.ae/store/archive/image/2021/10/22/6266a092-72dd-4a2f-82a4-d22ed9d2cc59.jpg?width=1300",
-                              // height: 333,
-                              // width: 100,
+                //------------------------------------
+                FutureBuilder(
+                  future: FirebaseFirestore.instance
+                      .collection('posts')
+                      .where('uid',
+                          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                      .get(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("Something went wrong");
+                    }
 
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        }),
-                  ),
-                ),
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Expanded(
+                        child: Padding(
+                          padding: widthScreen > 600
+                              ? const EdgeInsets.all(66.0)
+                              : const EdgeInsets.all(3.0),
+                          child: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 3 / 2,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10),
+                              itemCount: postNumber,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: Image.network(
+                                    snapshot.data.docs[index]['imgPost'],
+                                    // height: 333,
+                                    // width: 100,
+
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              }),
+                        ),
+                      );
+                    }
+
+                    return Text("loading");
+                  },
+                )
               ],
             ),
           );
