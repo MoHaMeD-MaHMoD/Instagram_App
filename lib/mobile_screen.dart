@@ -1,5 +1,5 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, non_constant_identifier_names, prefer_final_fields
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_app/screens/add.dart';
@@ -18,23 +18,30 @@ class MobileScreen extends StatefulWidget {
 class _MobileScreenState extends State<MobileScreen> {
   int currentPage = 0;
 
-  PageController _PageController = PageController();
+  PageController pageController = PageController();
+
+    @override
+  void dispose() {
+   
+    pageController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: PageView(
           onPageChanged: (index) {},
-          controller: _PageController,
+          controller: pageController,
           children: [
-            Home(),
-            Search(),
-            Add(),
-            Profile(),
+            const Home(),
+            const Search(),
+            const Add(),
+            Profile( userUid: FirebaseAuth.instance.currentUser!.uid,),
           ],
         ),
         bottomNavigationBar: CupertinoTabBar(
             onTap: (index) {
-              _PageController.jumpToPage(index);
+              pageController.jumpToPage(index);
               setState(() {
                 currentPage = index;
               });

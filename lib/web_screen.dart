@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_app/screens/add.dart';
@@ -81,21 +80,22 @@ class _WebScreenState extends State<WebScreen> {
         backgroundColor: mobileBackgroundColor,
         title: SvgPicture.asset(
           "assets/img/instagram.svg",
-          color: primaryColor,
+          colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+
           height: 32,
         ),
       ),
       body: PageView(
         controller: _pageController,
         onPageChanged: (index) {},
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         // controller: _pageController,
         children: [
-          Home(),
-          Search(),
-          Add(),
-          Center(child: Text("Love u ♥")),
-          Profile(),
+          const Home(),
+          const Search(),
+          const Add(),
+          const Center(child: Text("Love u ♥")),
+          Profile(userUid: FirebaseAuth.instance.currentUser!.uid,),
         ],
       ),
     );

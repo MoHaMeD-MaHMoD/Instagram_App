@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_app/firebase%20services/fireStore.dart';
-import 'package:instagram_app/provider/userProvider.dart';
+import 'package:instagram_app/firebase%20services/fire_store.dart';
+import 'package:instagram_app/provider/user_provider.dart';
 import 'package:instagram_app/shared/colors.dart';
 import 'package:path/path.dart' show basename;
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
 import 'dart:math';
-import 'package:uuid/uuid.dart';
-
 
 import 'package:provider/provider.dart';
 
@@ -36,13 +34,12 @@ class _AddState extends State<Add> {
           imgName = basename(pickedImg.path);
           int random = Random().nextInt(9999999);
           imgName = "$random$imgName";
-          print(imgName);
         });
       } else {
-        print("NO img selected");
+        debugPrint('debug: ERROR');
       }
     } catch (e) {
-      print("Error => $e");
+      debugPrint('debug: $e');
     }
   }
 
@@ -57,8 +54,8 @@ class _AddState extends State<Add> {
                 // Navigator.of(context).pop();
                 await uploadImage2Screen(ImageSource.camera);
               },
-              padding: EdgeInsets.all(20),
-              child: Text(
+              padding: const EdgeInsets.all(20),
+              child: const Text(
                 "From Camera",
                 style: TextStyle(
                   fontSize: 18,
@@ -70,8 +67,8 @@ class _AddState extends State<Add> {
                 // Navigator.of(context).pop();
                 await uploadImage2Screen(ImageSource.gallery);
               },
-              padding: EdgeInsets.all(20),
-              child: Text(
+              padding: const EdgeInsets.all(20),
+              child: const Text(
                 "From Gallary",
                 style: TextStyle(
                   fontSize: 18,
@@ -82,6 +79,13 @@ class _AddState extends State<Add> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    desController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -96,7 +100,7 @@ class _AddState extends State<Add> {
                   onPressed: () {
                     showmodel();
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.upload,
                     size: 55,
                   )),
@@ -145,8 +149,8 @@ class _AddState extends State<Add> {
             body: Column(
               children: [
                 isLoading
-                    ? LinearProgressIndicator()
-                    : Divider(
+                    ? const LinearProgressIndicator()
+                    : const Divider(
                         thickness: 1,
                         height: 30,
                       ),
@@ -164,7 +168,7 @@ class _AddState extends State<Add> {
                         // controller: descriptionController,
                         maxLines: 8,
                         controller: desController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: "write a caption...",
                             border: InputBorder.none),
                       ),

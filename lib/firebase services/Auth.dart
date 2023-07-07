@@ -19,8 +19,8 @@ class AuthUser {
         email: emailAddress,
         password: password,
       );
-      String profileImgURL =
-          await getImgURL(imgName: imgName, imgPath: imgPath, folderName: 'profileIMG');
+      String profileImgURL = await getImgURL(
+          imgName: imgName, imgPath: imgPath, folderName: 'profileIMG');
       CollectionReference users =
           FirebaseFirestore.instance.collection('users');
       UserData userr = UserData(
@@ -36,23 +36,24 @@ class AuthUser {
       users
           .doc(credential.user!.uid)
           .set(userr.convertToMap())
-          .then((value) => print("User Added"))
-          .catchError((error) => print("Failed to add user: $error"));
+          .then((value) => showSnackBar(context, "User Added "))
+          .catchError(
+              (error) => showSnackBar(context, "Failed to add user:  $error "));
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, "ERROR ${e.code}");
     } catch (e) {
-      print(e);
+      showSnackBar(context, "ERROR :  $e ");
     }
   }
 
   signIn({required emaill, required passwordd, required context}) async {
     try {
-      final credential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emaill, password: passwordd);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, "ERROR :  ${e.code} ");
     } catch (e) {
-      print(e);
+      showSnackBar(context, "ERROR :  $e ");
     }
   }
 
@@ -60,9 +61,12 @@ class AuthUser {
     await FirebaseAuth.instance.signOut();
   }
 
-   // functoin to get user details from Firestore (Database)
-Future<UserData> getUserDetails() async {
-   DocumentSnapshot snap = await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get(); 
-   return UserData.convertSnap2Model(snap);
- }
+  // functoin to get user details from Firestore (Database)
+  Future<UserData> getUserDetails() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    return UserData.convertSnap2Model(snap);
+  }
 }

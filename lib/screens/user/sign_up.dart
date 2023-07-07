@@ -1,21 +1,16 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sort_child_properties_last
-
 import 'dart:math';
-import 'dart:ui';
 import 'package:instagram_app/firebase%20services/Auth.dart';
-import 'package:instagram_app/webScreen.dart';
-import 'package:instagram_app/mobileScreen.dart';
+import 'package:instagram_app/mobile_screen.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_app/Responsive.dart';
-import 'package:instagram_app/screens/user/Login.dart';
+import 'package:instagram_app/responsive.dart';
+import 'package:instagram_app/screens/user/sign_in.dart';
 import 'package:instagram_app/shared/colors.dart';
 import 'package:instagram_app/shared/constant.dart';
 import 'package:instagram_app/shared/snackbar';
-
-import 'dart:io';
+import 'package:instagram_app/web_screen.dart';
 
 import 'package:path/path.dart' show basename;
 
@@ -49,13 +44,12 @@ class _RegisterState extends State<Register> {
           imgName = basename(pickedImg.path);
           int random = Random().nextInt(9999999);
           imgName = "$random$imgName";
-          print(imgName);
         });
       } else {
-        print("NO img selected");
+        debugPrint('debug:  NO img selected');
       }
     } catch (e) {
-      print("Error => $e");
+      debugPrint('debug: $e');
     }
   }
 
@@ -79,7 +73,7 @@ class _RegisterState extends State<Register> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => Responsive(
+            builder: (context) => const Responsive(
                   myMobileScreen: MobileScreen(),
                   myWebScreen: WebScreen(),
                 )),
@@ -98,7 +92,7 @@ class _RegisterState extends State<Register> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(22),
+          padding: const EdgeInsets.all(22),
           height: 170,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +101,7 @@ class _RegisterState extends State<Register> {
                 onTap: () async {
                   await uploadImage2Screen(ImageSource.camera);
                 },
-                child: Row(
+                child: const Row(
                   children: [
                     Icon(
                       Icons.camera,
@@ -123,14 +117,14 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 22,
               ),
               GestureDetector(
                 onTap: () {
                   uploadImage2Screen(ImageSource.gallery);
                 },
-                child: Row(
+                child: const Row(
                   children: [
                     Icon(
                       Icons.photo_outlined,
@@ -155,7 +149,6 @@ class _RegisterState extends State<Register> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     emailController.dispose();
     passwordController.dispose();
 
@@ -170,7 +163,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       backgroundColor: mobileBackgroundColor,
       appBar: AppBar(
-        title: Text("Register"),
+        title: const Text("Register"),
         elevation: 0,
         // backgroundColor: appbarGreen,
       ),
@@ -185,15 +178,15 @@ class _RegisterState extends State<Register> {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(5),
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color.fromARGB(125, 78, 91, 110),
                     ),
                     child: Stack(
                       children: [
                         imgPath == null
-                            ? CircleAvatar(
+                            ? const CircleAvatar(
                                 backgroundColor:
                                     Color.fromARGB(255, 225, 225, 225),
                                 radius: 71,
@@ -214,7 +207,7 @@ class _RegisterState extends State<Register> {
                               showmodel();
                             },
                             icon: const Icon(Icons.add_a_photo),
-                            color: Color.fromARGB(255, 208, 218, 224),
+                            color: const Color.fromARGB(255, 208, 218, 224),
                           ),
                         ),
                       ],
@@ -232,7 +225,7 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                       decoration: decorationTextfield.copyWith(
                           hintText: "Enter Your username : ",
-                          suffixIcon: Icon(Icons.person))),
+                          suffixIcon: const Icon(Icons.person))),
                   const SizedBox(
                     height: 22,
                   ),
@@ -245,7 +238,7 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                       decoration: decorationTextfield.copyWith(
                           hintText: "Enter Your title : ",
-                          suffixIcon: Icon(Icons.person_outline))),
+                          suffixIcon: const Icon(Icons.person_outline))),
                   const SizedBox(
                     height: 22,
                   ),
@@ -263,7 +256,7 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                       decoration: decorationTextfield.copyWith(
                           hintText: "Enter Your Email : ",
-                          suffixIcon: Icon(Icons.email))),
+                          suffixIcon: const Icon(Icons.email))),
                   const SizedBox(
                     height: 22,
                   ),
@@ -287,8 +280,8 @@ class _RegisterState extends State<Register> {
                                 });
                               },
                               icon: isVisable
-                                  ? Icon(Icons.visibility)
-                                  : Icon(Icons.visibility_off)))),
+                                  ? const Icon(Icons.visibility)
+                                  : const Icon(Icons.visibility_off)))),
                   const SizedBox(
                     height: 33,
                   ),
@@ -296,20 +289,21 @@ class _RegisterState extends State<Register> {
                     onPressed: () async {
                       await onRegister();
                     },
-                    child: isLoading
-                        ? CircularProgressIndicator(
-                            color: Colors.white,
-                          )
-                        : Text(
-                            "Register",
-                            style: TextStyle(fontSize: 19),
-                          ),
                     style: ButtonStyle(
                       // backgroundColor: MaterialStateProperty.all(BTNgreen),
-                      padding: MaterialStateProperty.all(EdgeInsets.all(12)),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(12)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8))),
                     ),
+                    child: isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            "Register",
+                            style: TextStyle(fontSize: 19),
+                          ),
                   ),
                   const SizedBox(
                     height: 33,
@@ -317,15 +311,17 @@ class _RegisterState extends State<Register> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(" have an account?", style: TextStyle(fontSize: 18)),
+                      const Text(" have an account?",
+                          style: TextStyle(fontSize: 18)),
                       TextButton(
                           onPressed: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => Login()),
+                              MaterialPageRoute(
+                                  builder: (context) => const Login()),
                             );
                           },
-                          child: Text('sign in',
+                          child: const Text('sign in',
                               style: TextStyle(
                                   fontSize: 18,
                                   decoration: TextDecoration.underline))),

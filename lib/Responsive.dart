@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_app/mobileScreen.dart';
-import 'package:instagram_app/provider/userProvider.dart';
-import 'package:instagram_app/webScreen.dart';
+import 'package:instagram_app/mobile_screen.dart';
+import 'package:instagram_app/provider/user_provider.dart';
+import 'package:instagram_app/web_screen.dart';
 import 'package:provider/provider.dart';
 
 class Responsive extends StatefulWidget {
-  final myWebScreen;
-  final myMobileScreen;
+  final WebScreen myWebScreen;
+  final MobileScreen myMobileScreen;
   const Responsive(
       {super.key, required this.myWebScreen, required this.myMobileScreen});
 
@@ -29,11 +29,13 @@ class _ResponsiveState extends State<Responsive> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (BuildContext, BoxConstraints) {
-      if (BoxConstraints.maxWidth > 600)
+    return LayoutBuilder(
+        builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
+      if (boxConstraints.maxWidth > 600) {
         return widget.myWebScreen;
-      else
+      } else {
         return widget.myMobileScreen;
+      }
     });
   }
 }

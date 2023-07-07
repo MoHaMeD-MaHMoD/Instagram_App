@@ -1,10 +1,6 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
-
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_app/firebase%20services/auth.dart';
-import 'package:instagram_app/screens/user/Register.dart';
+import 'package:instagram_app/screens/user/sign_up.dart';
 import 'package:instagram_app/shared/colors.dart';
 import 'package:instagram_app/shared/constant.dart';
 
@@ -37,7 +33,6 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -51,7 +46,7 @@ class _LoginState extends State<Login> {
         backgroundColor: mobileBackgroundColor,
         appBar: AppBar(
           // backgroundColor: appbarGreen,
-          title: Text("Sign in"),
+          title: const Text("Sign in"),
         ),
         body: Center(
             child: Padding(
@@ -70,7 +65,7 @@ class _LoginState extends State<Login> {
                   obscureText: false,
                   decoration: decorationTextfield.copyWith(
                       hintText: "Enter Your Email : ",
-                      suffixIcon: Icon(Icons.email))),
+                      suffixIcon: const Icon(Icons.email))),
               const SizedBox(
                 height: 33,
               ),
@@ -87,8 +82,8 @@ class _LoginState extends State<Login> {
                             });
                           },
                           icon: isVisable
-                              ? Icon(Icons.visibility)
-                              : Icon(Icons.visibility_off)))),
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off)))),
               const SizedBox(
                 height: 33,
               ),
@@ -98,15 +93,15 @@ class _LoginState extends State<Login> {
                 },
                 style: ButtonStyle(
                   // backgroundColor: MaterialStateProperty.all(BTNgreen),
-                  padding: MaterialStateProperty.all(EdgeInsets.all(12)),
+                  padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
                 ),
                 child: isLoading
-                    ? CircularProgressIndicator(
+                    ? const CircularProgressIndicator(
                         color: Colors.white,
                       )
-                    : Text(
+                    : const Text(
                         "Sign in",
                         style: TextStyle(fontSize: 19),
                       ),
@@ -117,16 +112,16 @@ class _LoginState extends State<Login> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Do not have an account?",
+                  const Text("Do not have an account?",
                       style: TextStyle(fontSize: 18)),
                   TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => Register()),
+                          MaterialPageRoute(builder: (context) => const Register()),
                         );
                       },
-                      child: Text('sign up',
+                      child: const Text('sign up',
                           style: TextStyle(
                               fontSize: 18,
                               decoration: TextDecoration.underline))),

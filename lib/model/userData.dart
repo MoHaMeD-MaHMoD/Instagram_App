@@ -30,7 +30,7 @@ class UserData {
       'email': email,
       'passwoed': password,
       'profile_img': profileImg,
-      'uid': password,
+      'uid': uid,
       'followers': followers,
       'following': following
     };

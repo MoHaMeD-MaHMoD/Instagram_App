@@ -26,7 +26,7 @@ class PostData {
   Map<String, dynamic> convertToMap() {
     return {
       'profile_img': profileImg,
-      'username': username,
+      'user_name': username,
       'description': description,
       'imgPost': imgPost,
       'uid': uid,
@@ -43,7 +43,7 @@ class PostData {
     var snapshot = snap.data() as Map<String, dynamic>;
     return PostData(
       profileImg: snapshot["profile_img"],
-      username: snapshot["username"],
+      username: snapshot["user_name"],
       description: snapshot["description"],
       imgPost: snapshot["imgPost"],
       uid: snapshot["uid"],

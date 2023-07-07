@@ -1,12 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_app/firebase%20services/auth.dart';
 import 'package:instagram_app/shared/colors.dart';
-import 'package:instagram_app/shared/postTemplet.dart';
-import 'package:intl/intl.dart';
+import 'package:instagram_app/shared/post_templet.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -28,21 +25,22 @@ class _HomeState extends State<Home> {
                 actions: [
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.messenger_outline,
                       )),
                   IconButton(
                       onPressed: () async {
                         await AuthUser().logOut();
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.logout,
                       )),
                 ],
                 backgroundColor: mobileBackgroundColor,
                 title: SvgPicture.asset(
                   "assets/img/Instagram_logo.svg",
-                  color: primaryColor,
+                  colorFilter:
+                      const ColorFilter.mode(primaryColor, BlendMode.srcIn),
                   height: 32,
                 ),
               ),
@@ -55,8 +53,8 @@ class _HomeState extends State<Home> {
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                  child: const CircularProgressIndicator(
+              return const Center(
+                  child: CircularProgressIndicator(
                 color: Colors.white,
               ));
             }
